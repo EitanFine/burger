@@ -1,6 +1,9 @@
 //Set up MySQL connection//
 var mysql = require("mysql");
 
+if(process.env.JAWSDB_URL){
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
+}else {
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -9,6 +12,7 @@ var connection = mysql.createConnection({
   socketPath:"/Applications/MAMP/tmp/mysql/mysql.sock"
 
 });
+};
 
 //Make connection//
 connection.connect(function(err) {
@@ -20,6 +24,7 @@ connection.connect(function(err) {
 });
 
 //Export connection for our ORM to use (orm.js)
+connection.connect();
 module.exports = connection;
 
 
